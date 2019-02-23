@@ -1,29 +1,4 @@
-window.onload = function() {
-  populateList();
-};
 
-window.setInterval(function(){
-  populateList();
-}, 10000);
-
-var counter = 0;
-
-function populateList() {
-  var ul = document.getElementById("departures");
-  clearList(ul);
-  for (i = 0; i < 10; i++) {
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(counter));
-    ul.appendChild(li);
-    counter++;
-  }
-}
-
-function clearList(list) {
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-}
 //HTTPHEADER: https://www.entur.org/dev/api/header/
 
 //https://api.entur.org/journeyplanner/2.0/index/graphql
