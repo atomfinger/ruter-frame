@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
       departure.routeId = estimatedCall.destinationDisplay.frontText + ' ('
         + estimatedCall.serviceJourney.journeyPattern.line.publicCode + ')';
       const date: Date = new Date(estimatedCall.expectedArrivalTime);
-      const diffInMins = this.dateDiffInMin(date)
+      const diffInMins = this.dateDiffInMin(date);
       departure.departureTime = this.getTimeText(diffInMins);
       departure.departureMin = diffInMins;
       list.push(departure);
