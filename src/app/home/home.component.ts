@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.refreshData();
-    this.interval = setInterval(() => { this.refreshData(); }, 10000);
+    this.interval = setInterval(() => { this.refreshData(); }, 30000);
   }
 
   refreshData() {
