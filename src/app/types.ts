@@ -3,7 +3,7 @@ export interface Wrapper {
 }
 
 export interface Data {
-    quay: Quay;
+    quays: Quay[];
 }
 
 export interface Quay {
