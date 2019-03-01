@@ -1,52 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IDeparture } from './departure';
-
-interface Wrapper {
-  data: Data;
-}
-
-interface Data {
-  quay: Quay;
-}
-
-interface Quay {
-  id: string;
-  estimatedCalls: EstimatedCall[];
-}
-
-interface EstimatedCall {
-  expectedArrivalTime: string;
-  actualArrivalTime: string;
-  cancellation: boolean;
-  destinationDisplay: DestinationDisplay;
-  serviceJourney: ServiceJourney;
-}
-
-interface DestinationDisplay {
-  frontText: string;
-}
-
-interface ServiceJourney {
-  journeyPattern: JourneyPattern;
-}
-
-interface JourneyPattern {
-  line: Line;
-}
-
-interface Line {
-  id: string;
-  name: string;
-  publicCode: string;
-}
-
-class Departure implements IDeparture {
-  routeId: string;
-  departureTime: string;
-  departureMin: number;
-
-}
+import {Wrapper, Departure, IDeparture, EstimatedCall } from '../types';
 
 @Component({
   selector: 'app-home',
@@ -55,22 +9,8 @@ class Departure implements IDeparture {
 })
 export class HomeComponent implements OnInit {
 
+  displayedColumns: string[] = ['routeId', 'departureTime'];
   departures: IDeparture[] = [];
-
-  constructor() {
-    this.departures = [{
-      routeId: '31E',
-      departureTime: '18:30'
-    },
-    {
-      routeId: '36E',
-      departureTime: '18:31'
-    },
-    {
-      routeId: '17',
-      departureTime: '18:36'
-    }];
-  }
 
   ngOnInit() {
     const data = "{\"query\":\"{\\n  quay(id: \\\"NSR:Quay:104044\\\") {\\n    id\\n    estimatedCalls(numberOfDepartures: 50, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
@@ -104,9 +44,7 @@ export class HomeComponent implements OnInit {
     this.departures = list.sort((a, b) => a.departureMin - b.departureMin);
   }
 
-  dateDiffInMin(todate): number {
-    return Math.floor((todate - +new Date()) / 60000);
-  }
+  dateDiffInMin(todate): number { return Math.floor((todate - +new Date()) / 60000); }
 
   getTimeText(diffInMins: number): string {
     if (diffInMins === 0) {
