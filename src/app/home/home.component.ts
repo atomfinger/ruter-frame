@@ -9,7 +9,7 @@ import { Wrapper, Departure, IDeparture, EstimatedCall, Quay } from '../types';
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['routeId', 'departureTime'];
+  displayedColumns: string[] = ['icon', 'routeId', 'departureTime'];
   departures: IDeparture[] = [];
   interval: NodeJS.Timer;
 
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   refreshData() {
     console.log('Refreshing data');
-    var data = "{\"query\":\"{\\n  quays(ids: [\\\"NSR:Quay:104044\\\", \\\"NSR:Quay:11054\\\"]) {\\n    id\\n    estimatedCalls(numberOfDepartures: 25, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
+    var data = "{\"query\":\"{\\n  quays(ids: [\\\"NSR:Quay:104044\\\", \\\"NSR:Quay:11054\\\"]) {\\n    id\\n    estimatedCalls(numberOfDepartures: 10, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n            transportMode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.withCredentials = false;
@@ -54,6 +54,11 @@ export class HomeComponent implements OnInit {
     const diffInMins = this.dateDiffInMin(date);
     departure.departureTime = this.getTimeText(diffInMins);
     departure.departureMin = diffInMins;
+    if (estimatedCall.serviceJourney.journeyPattern.line.transportMode.toLowerCase() === 'tram') {
+      departure.iconPath = '/assets/tram.png';
+    } else {
+      departure.iconPath = '/assets/bus.png';
+    }
     return departure;
   }
 

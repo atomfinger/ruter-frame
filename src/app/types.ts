@@ -35,15 +35,18 @@ export interface Line {
     id: string;
     name: string;
     publicCode: string;
+    transportMode: string;
 }
 
 export interface IDeparture {
     routeId: string;
     departureTime: string;
+    iconPath: string;
 }
 
 export class Departure implements IDeparture {
     routeId: string;
     departureTime: string;
     departureMin: number;
+    iconPath: string;
 }

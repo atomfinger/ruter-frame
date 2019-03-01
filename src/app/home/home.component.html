@@ -1,6 +1,13 @@
-
 <tbody>
   <table mat-table [dataSource]="departures || ''" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let departure"> 
+        <img src={{departure.iconPath}} class="icon"/> 
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="routeId">
       <th mat-header-cell *matHeaderCellDef> Rute </th>
       <td mat-cell *matCellDef="let departure"> {{departure.routeId}} </td>
