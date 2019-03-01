@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
     } else if (diffInMins > 59) {
       const hours = Math.floor(diffInMins / 60);
       const minutes = diffInMins - (hours * 60);
-      return hours + ' timer' + (minutes <= 0) ? '' : minutes + ' min';
+      return hours + ' timer ' + ((minutes <= 0) ? '' : minutes + ' min');
     } else {
       return diffInMins + ' min';
     }
