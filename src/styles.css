@@ -1,7 +1,11 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 .content {
-    max-width: 500px;
+    max-width: 400px;
     margin: auto;
     padding: 10px;
+}
+
+body {
+    background-color: #d9d9d9;
 }

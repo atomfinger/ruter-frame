@@ -42,6 +42,7 @@ export interface IDeparture {
     routeId: string;
     departureTime: string;
     iconPath: string;
+    color: string;
 }
 
 export class Departure implements IDeparture {
@@ -49,4 +50,5 @@ export class Departure implements IDeparture {
     departureTime: string;
     departureMin: number;
     iconPath: string;
+    color: string;
 }

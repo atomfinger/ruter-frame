@@ -3,19 +3,23 @@
 
     <ng-container matColumnDef="icon">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let departure"> 
-        <img src={{departure.iconPath}} class="icon"/> 
+      <td mat-cell *matCellDef="let departure" [style.background-color]="departure.color">
+        <img src={{departure.iconPath}} class="icon" />
       </td>
     </ng-container>
 
     <ng-container matColumnDef="routeId">
       <th mat-header-cell *matHeaderCellDef> Rute </th>
-      <td mat-cell *matCellDef="let departure"> {{departure.routeId}} </td>
+      <td mat-cell *matCellDef="let departure" [style.background-color]="departure.color">
+        {{departure.routeId}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="departureTime">
       <th mat-header-cell *matHeaderCellDef> Ankomst </th>
-      <td mat-cell *matCellDef="let departure"> {{departure.departureTime}} </td>
+      <td mat-cell *matCellDef="let departure" [style.background-color]="departure.color">
+        {{departure.departureTime}}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns || ''"></tr>

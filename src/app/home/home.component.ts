@@ -55,9 +55,11 @@ export class HomeComponent implements OnInit {
     departure.departureTime = this.getTimeText(diffInMins);
     departure.departureMin = diffInMins;
     if (estimatedCall.serviceJourney.journeyPattern.line.transportMode.toLowerCase() === 'tram') {
-      departure.iconPath = '/assets/tram.png';
+      departure.iconPath = '/assets/img/tram.png';
+      departure.color = '#b3d1ff';
     } else {
-      departure.iconPath = '/assets/bus.png';
+      departure.iconPath = '/assets/img/bus.png';
+      departure.color = '#ffad99';
     }
     return departure;
   }
