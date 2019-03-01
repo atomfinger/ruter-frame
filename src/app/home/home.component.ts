@@ -11,8 +11,15 @@ export class HomeComponent implements OnInit {
 
   displayedColumns: string[] = ['routeId', 'departureTime'];
   departures: IDeparture[] = [];
+  interval: NodeJS.Timer;
 
   ngOnInit() {
+    this.refreshData();
+    this.interval = setInterval(() => { this.refreshData(); }, 10000);
+  }
+
+  refreshData() {
+    console.log('Refreshing data');
     var data = "{\"query\":\"{\\n  quays(ids: [\\\"NSR:Quay:104044\\\", \\\"NSR:Quay:11054\\\"]) {\\n    id\\n    estimatedCalls(numberOfDepartures: 50, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
