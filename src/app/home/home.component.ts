@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   refreshData() {
     console.log('Refreshing data');
-    const data = "{\"query\":\"{\\n  quays(ids: [\\\"NSR:Quay:104044\\\", \\\"NSR:Quay:11054\\\"]) {\\n    id\\n    estimatedCalls(numberOfDepartures: 10, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n            transportMode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
+    const data = "{\"query\":\"{\\n  quays(ids: [\\\"NSR:Quay:104044\\\", \\\"NSR:Quay:11054\\\"]) {\\n    id\\n    estimatedCalls(numberOfDepartures: 25, omitNonBoarding: true) {\\n      expectedArrivalTime\\n      actualArrivalTime\\n      cancellation\\n\\n      destinationDisplay {\\n        frontText\\n      }\\n      serviceJourney {\\n        journeyPattern {\\n          line {\\n            id\\n            name\\n            publicCode\\n            transportMode\\n          }\\n        }\\n      }\\n    }\\n  }\\n}\\n\"}";
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.withCredentials = false;
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
         list.push(this.getDeparture(estimatedCall));
       });
     });
-    this.departures = list.sort((a, b) => a.departureMin - b.departureMin);
+    this.departures = list.sort((a, b) => a.departureMin - b.departureMin).slice(0, 20);
   }
 
   getDeparture(estimatedCall: EstimatedCall): Departure {
@@ -56,10 +56,10 @@ export class HomeComponent implements OnInit {
     departure.departureMin = diffInMins;
     if (estimatedCall.serviceJourney.journeyPattern.line.transportMode.toLowerCase() === 'tram') {
       departure.iconPath = '/assets/img/tram.png';
-      departure.color = '#b3d1ff';
+      departure.color = '#b3d9ff';
     } else {
       departure.iconPath = '/assets/img/bus.png';
-      departure.color = '#ffad99';
+      departure.color = '#ffc2b3';
     }
     return departure;
   }
@@ -69,6 +69,10 @@ export class HomeComponent implements OnInit {
   getTimeText(diffInMins: number): string {
     if (diffInMins === 0) {
       return 'Nå';
+    } else if (diffInMins > 59) {
+      const hours = Math.floor(diffInMins / 60);
+      const minutes = diffInMins - (hours * 60);
+      return hours + ' timer' + (minutes <= 0) ? '' : minutes + ' min';
     } else {
       return diffInMins + ' min';
     }
