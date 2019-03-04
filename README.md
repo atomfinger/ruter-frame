@@ -6,7 +6,7 @@ Why?
 
 ...Trying out angular I guess...
 
-[Screenshot](docs/img/rute_screenshot.png)
+![Application screenshot](docs/img/rute_screenshot.png)
 
 ## Development server
 
